@@ -123,13 +123,13 @@ There's a lot of stuff that requires admin access via `sudo`, so be warned that 
 #### Ubuntu
 
 ```sh
-bash -c "$(wget -qO- https://bit.ly/amnykon-dotfiles)" && source ~/.bashrc
+bash -c "$(wget -qO- https://raw.github.com/amnykon/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
 ```
 
 #### macOS
 
 ```sh
-bash -c "$(curl -fsSL https://bit.ly/amnykon-dotfiles)" && source ~/.bashrc
+bash -c "$(curl -fsSL https://raw.github.com/amnykon/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
 ```
 
 ## Aliases and Functions
