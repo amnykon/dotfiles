@@ -18,5 +18,10 @@
 # Don't commit byobu ssh-agent symlink
 /link/.byobu/.ssh-agent
 
+# Don't commit generated xmonad files
+/link/.xmonad/xmonad.hi
+/link/.xmonad/xmonad.o
+/link/.xmonad/xmonad-x86_64-linux
+
 # Ignore any file with LOCAL in the name (good for per-machine vars/functions)
 *LOCAL*

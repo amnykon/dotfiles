@@ -5,11 +5,15 @@ import XMonad.Util.EZConfig(additionalKeys)
 
 import XMonad.Actions.PhysicalScreens
 import XMonad.Actions.FocusNth
+import XMonad.Layout
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Column
 import XMonad.Layout.ResizableTile
 import XMonad.Actions.TopicSpace
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.TwoPane
+import XMonad.Layout.NoBorders
+import XMonad.Layout.ComboP
 
 import qualified Data.Map as M
 
@@ -43,16 +47,20 @@ main = do
     modMask = mod4Mask,     -- Rebind Mod to the Windows key
     layoutHook =
       onWorkspace "web" (
-        simpleTabbed
-        ||| Mirror(Column 1)
-        ||| ResizableTall 1 (3/100) (1/2) []
-        ||| Mirror (ResizableTall 1 (3/100) (1/2) [])
+         combineTwoP (
+           TwoPane (3/100) (1/8)) (Full) (Mirror (Column 1)) (Role ("pop-up")
+         )
+         ||| combineTwoP (
+           TwoPane (3/100) (1/8)) (Full) (Column 1) (Role ("pop-up")
+         )
+      ) $
+      onWorkspace "file" (
+        Mirror (ResizableTall 1 (3/100) (1/2) [])
       ) $
       onWorkspace "term" (
         (Mirror(Column 1))
-        ||| Mirror (ResizableTall 3 (3/100) (1/2) [])
+        ||| Mirror(noBorders(ResizableTall 3 (3/100) (1/2) []))
       ) $
-      onWorkspace "file" (Mirror (ResizableTall 1 (3/100) (1/2) [])) $ 
       simpleTabbed
       ||| Mirror(Column 1)
       ||| ResizableTall 1 (3/100) (1/2) []
@@ -68,16 +76,10 @@ main = do
     ((0, xK_F6), sequence_ [ viewScreen 1, focusNth 1 ]),
     ((0, xK_F7), sequence_ [ viewScreen 1, focusNth 2 ]),
     ((0, xK_F8), sequence_ [ viewScreen 1, focusNth 3 ]),
-    --((mod1Mask .|. controlMask, xK_t), spawn $ XMonad.terminal (XConfig {XMonad.modMask = mod1Mask})),
-    ((mod1Mask .|. controlMask, xK_t), spawn "lxterminal"),
-    ((mod4Mask, xK_t), goto "term" ),
-    --((mod1Mask ,xK_c), spawn $ XMonad.terminal conf),
-    ((mod1Mask .|. controlMask, xK_b), spawn "chromium-browser"),
     ((mod4Mask, xK_w), goto "web" ),
+    ((mod4Mask, xK_f), goto "file" ),
+    ((mod4Mask, xK_t), goto "term" ),
+    ((mod1Mask .|. controlMask, xK_b), spawn "chromium-browser"),
     ((mod1Mask .|. controlMask, xK_w), spawn "pcmanfm"),
-    ((mod4Mask, xK_f), goto "file" )
-    --((mod1Mask, xK_a), currentTopicAction myTopicConfig)
-    --((mod1Mask, xK_b), moveTo "web")
-    --((modMask, xK_b), windows $ W.greedyView "1")
-    --((shiftMask .|. modm, xK_b), windows $ W.shift "1")
+    ((mod1Mask .|. controlMask, xK_t), spawn "lxterminal")
    ]

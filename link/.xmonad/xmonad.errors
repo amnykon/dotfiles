@@ -1,0 +1,15 @@
+
+xmonad.hs:31:17: Warning:
+    Fields of ‘TopicConfig’ not initialised: topicDirs,
+                                             defaultTopicAction, defaultTopic, maxTopicHistory
+    In the expression:
+      TopicConfig
+        {topicActions = M.fromList
+                        $ [("web", spawn "chromium-browser"), ("file", spawn "pcmanfm"),
+                           ("term", sequence_ [spawn "lxterminal", ....])]}
+    In an equation for ‘myTopicConfig’:
+        myTopicConfig
+          = TopicConfig
+              {topicActions = M.fromList
+                              $ [("web", spawn "chromium-browser"), ("file", spawn "pcmanfm"),
+                                 ....]}
