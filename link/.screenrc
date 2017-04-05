@@ -1,0 +1,17 @@
+escape ^||
+
+mousetrack on
+
+# Bind F11 and F12 (NOT F1 and F2) to previous and next screen window
+bindkey -k k1 focus top
+bindkey -k k2 eval "focus top" "focus right"
+bindkey -k k3 eval "focus top" "focus right" "focus right"
+
+bindkey -k k5 eval "focus top" "focus down"
+bindkey -k k6 eval "focus top" "focus right" "focus down"
+bindkey -k k7 eval "focus top" "focus right" "focus right" "focus down"
+
+bindkey -k k9 eval "focus bottom" "split -v" focus screen
+bindkey -k k8 eval "split" "focus down" screen
+
+startup_message off
